@@ -34,7 +34,13 @@ var candidates = {
         ineligible: false
     },
     vim: {
-        name: "Vi Improved (VIM)",
+        name: "Vi Improved (Vim)",
+        link: "http://vim.org",
+        score: 0,
+        ineligible: false
+    },
+	gvim: {
+        name: "Graphical Vim (gVim)",
         link: "http://vim.org",
         score: 0,
         ineligible: false
@@ -81,13 +87,13 @@ var questions = [
         options: [
             {
                 text: "Terminal",
-                benefits: ["nano", "vim", "emacs"],
-                ineligible: ["kwrite", "gedit", "spacemacs", "atom"]
+                benefits: ["nano", "vim"],
+                ineligible: ["kwrite", "gedit", "spacemacs", "atom", "gvim"]
             },
             {
                 text: "GUI",
-                benefits: ["atom", "kwrite", "gedit", "spacemacs"],
-                ineligible: ["nano"]
+                benefits: ["atom", "kwrite", "gedit", "spacemacs", "emacs", "gvim"],
+                ineligible: ["nano", "vim"]
             },
             {
                 text: "Either One",
@@ -102,11 +108,11 @@ var questions = [
             {
                 text: "Intuitive",
                 benefits: ["nano", "atom", "gedit", "kwrite"],
-                ineligible: ["vim"]
+                ineligible: ["vim", "gvim"]
             },
             {
                 text: "Advanced",
-                benefits: ["emacs", "vim", "spacemacs"],
+                benefits: ["emacs", "vim", "gvim", "spacemacs"],
                 ineligible: ["nano", "gedit"]
             },
             {
@@ -121,7 +127,7 @@ var questions = [
         options: [
             {
                 text: "Definitely!",
-                benefits: ["vim", "emacs", "spacemacs", "atom"],
+                benefits: ["vim", "gvim", "emacs", "spacemacs", "atom"],
                 ineligible: ["nano", "gedit", "kwrite"]
             },
             {
@@ -136,18 +142,18 @@ var questions = [
         options: [
             {
                 text: "Vim all the way!",
-                benefits: ["vim", "spacemacs"],
+                benefits: ["vim", "gvim", "spacemacs"],
                 ineligible: ["emacs", "atom", "gedit", "kwrite", "nano"]
             },
             {
                 text: "Emacs forever!",
                 benefits: ["emacs", "spacemacs"],
-                ineligible: ["vim", "atom", "gedit", "kwrite", "nano"]
+                ineligible: ["vim", "gvim", "atom", "gedit", "kwrite", "nano"]
             },
             {
                 text: "Neither!",
                 benefits: ["atom", "gedit", "kwrite", "nano"],
-                ineligible: ["emacs", "vim", "spacemacs"]
+                ineligible: ["emacs", "vim", "gvim", "spacemacs"]
             },
             {
                 text: "I Don't Know!",
@@ -161,13 +167,13 @@ var questions = [
         options: [
             {
                 text: "Stable!",
-                benefits: ["vim", "emacs"],
+                benefits: ["vim", "gvim", "emacs"],
                 ineligible: ["atom", "gedit", "kwrite", "spacemacs"]
             },
             {
                 text: "Modern!",
                 benefits: ["atom", "spacemacs"],
-                ineligible: ["vim", "emacs"]
+                ineligible: ["vim", "gvim", "emacs"]
             },
             {
                 text: "Either One!",
@@ -181,7 +187,7 @@ var questions = [
         options: [
             {
                 text: "Of course!",
-                benefits: ["spacemacs", "atom", "vim", "emacs", "kwrite"],
+                benefits: ["spacemacs", "atom", "vim", "gvim", "emacs", "kwrite"],
                 ineligible: ["nano"]
             },
             {
