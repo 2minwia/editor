@@ -35,13 +35,13 @@ var candidates = {
     },
     vim: {
         name: "Vi Improved (Vim)",
-        link: "http://vim.org",
+        link: "http://www.vim.org",
         score: 0,
         ineligible: false
     },
 	gvim: {
         name: "Graphical Vim (gVim)",
-        link: "http://vim.org",
+        link: "http://www.vim.org",
         score: 0,
         ineligible: false
     },
