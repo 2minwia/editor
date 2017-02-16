@@ -50,7 +50,7 @@ body {
     display: block;
 }
 .captionsb {
-    margin: 0.5ex;
+    margin: 0.25ex;
     font-size: 0.9em;
     display: none;
     font-weight: bold;
@@ -59,10 +59,9 @@ body {
     display: block;
 }
 #namesb {
-    margin: 0.5ex;
+    margin: 0.25ex;
     font-size: 1.1em;
     display: none;
-    font-weight: bold;
 	text-decoration: none;
     color: inherit;
 }
