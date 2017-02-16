@@ -49,6 +49,16 @@ body {
 .link .caption {
     display: block;
 }
+#namesb {
+    margin: 0.25ex;
+    font-size: 1.1em;
+    display: none;
+	text-decoration: none;
+    color: inherit;
+}
+.link #namesb {
+	display: block
+}
 #about {
     position: fixed;
     bottom: 4px;
