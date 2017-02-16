@@ -19,7 +19,10 @@ var dom = {
     startButton: document.getElementById("start"),
 
     // The query area containing the quiz.
-    query: document.getElementById("query")
+    query: document.getElementById("query"),
+	
+	// Second best editor
+	namesb: document.getElementById("namesb")
 };
 
 // A list of candidates for editor to be recommended.
@@ -244,8 +247,6 @@ var displayResults = function () {
     }).filter(function (candidate) {
         return !candidate.ineligible;
     });
-	
-	console.debug(candidateArray)
 
     // Sort candidates by score.
     candidateArray.sort(function (a, b) {
@@ -261,9 +262,11 @@ var displayResults = function () {
         };
     }
 
-    // Show the ideal editor name and link.
+    // Show the ideal editor name and link, followed by second best editor.
     dom.question.innerHTML = candidateArray[0].name;
     dom.question.href = candidateArray[0].link;
+	dom.namesb.innerHTML = candidateArray[1].name;
+    dom.namesb.href = candidateArray[1].link;
 
     // Classify the quiz as finished / link-mode.
     dom.query.classList.add("link");
@@ -292,7 +295,7 @@ var questionPrompt = function () {
             // Increase score of benefiting candidates.
             answer.benefits.forEach(function(benefits) {
                 candidates[benefits].score += questions[question].bimportance;
-				console.debug(candidates[benefits].name, candidates[benefits].score)
+				console.debug(candidates[benefits].name, candidates[benefits].score) //Print debug logs
             });
 			
 			answer.disadvantages.forEach(function(disadvantages) {
@@ -306,7 +309,7 @@ var questionPrompt = function () {
 				console.debug(candidates[ineligible].name, candidates[ineligible].ineligible)
             });
 			
-			console.debug("") //Print newline for making debug logs make more sense.
+			console.debug("") //Print newline for separating debug logs
 			
             // Prompt for the next question.
             questionPrompt();
