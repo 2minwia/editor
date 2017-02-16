@@ -49,15 +49,6 @@ body {
 .link .caption {
     display: block;
 }
-.captionsb {
-    margin: 0.25ex;
-    font-size: 0.9em;
-    display: none;
-    font-weight: bold;
-}
-.link .captionsb {
-    display: block;
-}
 #namesb {
     margin: 0.25ex;
     font-size: 1.1em;
