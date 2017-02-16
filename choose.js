@@ -19,7 +19,10 @@ var dom = {
     startButton: document.getElementById("start"),
 
     // The query area containing the quiz.
-    query: document.getElementById("query")
+    query: document.getElementById("query"),
+	
+	// Second best editor
+	namesb: document.getElementById("namesb")
 };
 
 // A list of candidates for editor to be recommended.
@@ -74,125 +77,161 @@ var candidates = {
         link: "https://kde.org/applications/utilities/kwrite",
         score: 0,
         ineligible: false
+    },
+	micro: {
+        name: "micro",
+        link: "https://micro-editor.github.io/",
+        score: 0,
+        ineligible: false
     }
 };
 
 // The list of questions to ask the user. Each question has a prompt text
 // followed by a list of options that the user may select and use. Options
-// have a text label, a list of candidates they benefit, and a list of
-// candidates that are registered ineligible.
+// have a text label, a list of candidates they benefit/disadvantages,
+// how important that question is (added score) for both advantages and
+// disadvantages, and a list of candidates that are registered ineligible.
 var questions = [
     {
         text: "Would you like to work in the Terminal, or in a GUI?",
+		bimportance: 0.8,
+		dimportance: 0.6,
         options: [
             {
                 text: "Terminal",
-                benefits: ["nano", "vim"],
-                ineligible: ["kwrite", "gedit", "spacemacs", "atom", "gvim"]
+                benefits: ["nano", "vim", "micro"],
+				disadvantages: ["kwrite", "gedit", "spacemacs", "atom", "emacs"],
+                ineligible: ["gvim"]
             },
             {
                 text: "GUI",
                 benefits: ["atom", "kwrite", "gedit", "spacemacs", "emacs", "gvim"],
-                ineligible: ["nano", "vim"]
+				disadvantages: ["nano"],
+                ineligible: ["vim"]
             },
             {
                 text: "Either One",
                 benefits: [],
+				disadvantages: [],
                 ineligible: []
             }
         ]
     },
     {
         text: "Intuitive or Advanced Controls?",
+		bimportance: 1,
+		dimportance: 1,
         options: [
             {
                 text: "Intuitive",
-                benefits: ["nano", "atom", "gedit", "kwrite"],
-                ineligible: ["vim", "gvim"]
+                benefits: ["nano", "atom", "gedit", "kwrite", "micro"],
+				disadvantages: ["vim", "gvim"],
+                ineligible: []
             },
             {
                 text: "Advanced",
                 benefits: ["emacs", "vim", "gvim", "spacemacs"],
-                ineligible: ["nano", "gedit"]
+				disadvantages: ["nano", "gedit", "micro"],
+                ineligible: []
             },
             {
                 text: "Whichever",
                 benefits: [],
+				disadvantages: [],
                 ineligible: []
             }
         ]
     },
     {
         text: "Do you need advanced features like split views?",
+		bimportance: 1,
+		dimportance: 1.5,
         options: [
             {
                 text: "Definitely!",
-                benefits: ["vim", "gvim", "emacs", "spacemacs", "atom"],
+                benefits: ["vim", "gvim", "emacs", "spacemacs", "atom", "micro"],
+				disadvantages: [],
                 ineligible: ["nano", "gedit", "kwrite"]
             },
             {
                 text: "Not Really.",
                 benefits: [],
+				disadvantages: [],
                 ineligible: []
             }
         ]
     },
     {
         text: "Do you prefer vim or emacs's editing style?",
+		bimportance: 1.5,
+		dimportance: 2,
         options: [
             {
                 text: "Vim all the way!",
                 benefits: ["vim", "gvim", "spacemacs"],
-                ineligible: ["emacs", "atom", "gedit", "kwrite", "nano"]
+				disadvantages: ["emacs", "atom", "gedit", "kwrite", "nano", "micro"],
+                ineligible: []
             },
             {
                 text: "Emacs forever!",
                 benefits: ["emacs", "spacemacs"],
-                ineligible: ["vim", "gvim", "atom", "gedit", "kwrite", "nano"]
+				disadvantages: ["vim", "gvim", "atom", "gedit", "kwrite", "nano", "micro"],
+                ineligible: []
             },
             {
                 text: "Neither!",
-                benefits: ["atom", "gedit", "kwrite", "nano"],
-                ineligible: ["emacs", "vim", "gvim", "spacemacs"]
+                benefits: ["atom", "gedit", "kwrite", "nano", "micro"],
+				disadvantages: ["emacs", "vim", "gvim", "spacemacs"],
+                ineligible: []
             },
             {
                 text: "I Don't Know!",
-                benefits: ["spacemacs", "nano", "gedit", "kwrite", "atom"],
+                benefits: ["spacemacs", "nano", "gedit", "kwrite", "atom", "micro"],
+				disadvantages: [],
                 ineligible: []
             }
         ]
     },
     {
         text: "Want something nice and stable or modern?",
+		bimportance: 1,
+		dimportance: 0.75,
         options: [
             {
                 text: "Stable!",
-                benefits: ["vim", "gvim", "emacs"],
-                ineligible: ["atom", "gedit", "kwrite", "spacemacs"]
+                benefits: ["vim", "gvim", "emacs", "nano"],
+				disadvantages: ["atom", "gedit", "kwrite", "spacemacs", "micro"],
+                ineligible: []
             },
             {
                 text: "Modern!",
-                benefits: ["atom", "spacemacs"],
-                ineligible: ["vim", "gvim", "emacs"]
+                benefits: ["atom", "spacemacs", "micro"],
+				disadvantages: ["vim", "gvim", "emacs"],
+                ineligible: []
             },
             {
                 text: "Either One!",
                 benefits: [],
+				disadvantages: [],
                 ineligible: []
             }
         ]
     },
     {
         text: "Want to theme and customize your editor?",
+		bimportance: 1,
+		dimportance: 1.5,
         options: [
             {
                 text: "Of course!",
-                benefits: ["spacemacs", "atom", "vim", "gvim", "emacs", "kwrite"],
-                ineligible: ["nano"]
+                benefits: ["spacemacs", "atom", "vim", "gvim", "emacs", "kwrite", "micro"],
+				disadvantages: ["nano"],
+                ineligible: []
             },
             {
                 text: "Doesn't matter!",
                 benefits: [],
+				disadvantages: [],
                 ineligible: []
             }
         ]
@@ -212,8 +251,8 @@ var displayResults = function () {
     // Sort candidates by score.
     candidateArray.sort(function (a, b) {
         if (a.score === b.score) return 0;
-        if (a.score > b.score) return 1;
-        if (a.score < b.score) return -1;
+        if (a.score > b.score) return -1; //I dont know why, but I had to reverse this, as the
+        if (a.score < b.score) return 1;  //picker picked the editor with the lowest(!) score.
     });
 
     if (!candidateArray[0]) {
@@ -223,9 +262,11 @@ var displayResults = function () {
         };
     }
 
-    // Show the ideal editor name and link.
+    // Show the ideal editor name and link, followed by second best editor.
     dom.question.innerHTML = candidateArray[0].name;
     dom.question.href = candidateArray[0].link;
+	dom.namesb.innerHTML = candidateArray[1].name;
+    dom.namesb.href = candidateArray[1].link;
 
     // Classify the quiz as finished / link-mode.
     dom.query.classList.add("link");
@@ -253,14 +294,23 @@ var questionPrompt = function () {
         answerButton.onclick = function () {
             // Increase score of benefiting candidates.
             answer.benefits.forEach(function(benefits) {
-                candidates[benefits].score++;
+                candidates[benefits].score += questions[question].bimportance;
+				console.debug(candidates[benefits].name, candidates[benefits].score) //Print debug logs
+            });
+			
+			answer.disadvantages.forEach(function(disadvantages) {
+                candidates[disadvantages].score -= questions[question].dimportance;
+				console.debug(candidates[disadvantages].name, candidates[disadvantages].score)
             });
 
             // Mark newly ineligible candidates.
             answer.ineligible.forEach(function(ineligible) {
                 candidates[ineligible].ineligible = true;
+				console.debug(candidates[ineligible].name, candidates[ineligible].ineligible)
             });
-
+			
+			console.debug("") //Print newline for separating debug logs
+			
             // Prompt for the next question.
             questionPrompt();
         };
