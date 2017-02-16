@@ -20,9 +20,9 @@ var dom = {
 
     // The query area containing the quiz.
     query: document.getElementById("query"),
-	
-	// Second best editor
-	namesb: document.getElementById("namesb")
+
+    // Second best editor
+    namesb: document.getElementById("namesb")
 };
 
 // A list of candidates for editor to be recommended.
@@ -295,22 +295,17 @@ var questionPrompt = function () {
             // Increase score of benefiting candidates.
             answer.benefits.forEach(function(benefits) {
                 candidates[benefits].score += questions[question].bimportance;
-				console.debug(candidates[benefits].name, candidates[benefits].score) //Print debug logs
             });
 			
 			answer.disadvantages.forEach(function(disadvantages) {
                 candidates[disadvantages].score -= questions[question].dimportance;
-				console.debug(candidates[disadvantages].name, candidates[disadvantages].score)
             });
 
             // Mark newly ineligible candidates.
             answer.ineligible.forEach(function(ineligible) {
                 candidates[ineligible].ineligible = true;
-				console.debug(candidates[ineligible].name, candidates[ineligible].ineligible)
             });
-			
-			console.debug("") //Print newline for separating debug logs
-			
+						
             // Prompt for the next question.
             questionPrompt();
         };
