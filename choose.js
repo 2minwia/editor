@@ -245,7 +245,7 @@ var displayResults = function () {
         return !candidate.ineligible;
     });
 	
-	console.log(candidateArray)
+	console.debug(candidateArray)
 
     // Sort candidates by score.
     candidateArray.sort(function (a, b) {
@@ -292,21 +292,21 @@ var questionPrompt = function () {
             // Increase score of benefiting candidates.
             answer.benefits.forEach(function(benefits) {
                 candidates[benefits].score += questions[question].bimportance;
-				console.log(candidates[benefits].name, candidates[benefits].score)
+				console.debug(candidates[benefits].name, candidates[benefits].score)
             });
 			
 			answer.disadvantages.forEach(function(disadvantages) {
                 candidates[disadvantages].score -= questions[question].dimportance;
-				console.log(candidates[disadvantages].name, candidates[disadvantages].score)
+				console.debug(candidates[disadvantages].name, candidates[disadvantages].score)
             });
 
             // Mark newly ineligible candidates.
             answer.ineligible.forEach(function(ineligible) {
                 candidates[ineligible].ineligible = true;
-				console.log(candidates[ineligible].name, candidates[ineligible].ineligible)
+				console.debug(candidates[ineligible].name, candidates[ineligible].ineligible)
             });
 			
-			console.log("") //Print newline for making debug logs make more sense.
+			console.debug("") //Print newline for making debug logs make more sense.
 			
             // Prompt for the next question.
             questionPrompt();
