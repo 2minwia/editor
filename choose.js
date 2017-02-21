@@ -78,6 +78,12 @@ var candidates = {
         score: 0,
         ineligible: false
     },
+    kate: {
+        name: "Kate",
+        link: "https://kate-editor.org/",
+        score: 0,
+        ineligible: false
+    },
 	micro: {
         name: "micro",
         link: "https://micro-editor.github.io/",
@@ -104,7 +110,19 @@ var questions = [
                 ineligible: ["gvim"]
             },
             {
-                text: "GUI",
+                text: "GUI, Qt",
+                benefits: ["kwrite", "kate"],
+                disadvantages: ["nano"],
+                ineligible: ["vim"]
+            },
+            {
+                text: "GUI, GTK",
+                benefits: ["atom", "gedit", "spacemacs", "emacs", "gvim"],
+                disadvantages: ["nano"],
+                ineligible: ["vim"]
+            },
+            {
+                text: "GUI, any toolkit",
                 benefits: ["atom", "kwrite", "gedit", "spacemacs", "emacs", "gvim"],
                 disadvantages: ["nano"],
                 ineligible: ["vim"]
@@ -124,13 +142,13 @@ var questions = [
         options: [
             {
                 text: "Intuitive",
-                benefits: ["nano", "atom", "gedit", "kwrite", "micro"],
+                benefits: ["nano", "atom", "gedit", "kwrite", "micro", "kate"],
                 disadvantages: ["vim", "gvim"],
                 ineligible: []
             },
             {
                 text: "Advanced",
-                benefits: ["emacs", "vim", "gvim", "spacemacs"],
+                benefits: ["emacs", "vim", "gvim", "spacemacs", "kate"],
                 disadvantages: ["nano", "gedit", "micro"],
                 ineligible: []
             },
@@ -149,7 +167,7 @@ var questions = [
         options: [
             {
                 text: "Definitely!",
-                benefits: ["vim", "gvim", "emacs", "spacemacs", "atom", "micro"],
+                benefits: ["vim", "gvim", "emacs", "spacemacs", "atom", "micro", "kate"],
                 disadvantages: [],
                 ineligible: ["nano", "gedit", "kwrite"]
             },
@@ -168,25 +186,25 @@ var questions = [
         options: [
             {
                 text: "Vim all the way!",
-                benefits: ["vim", "gvim", "spacemacs"],
+                benefits: ["vim", "gvim", "spacemacs", "kate"],
                 disadvantages: ["emacs", "atom", "gedit", "kwrite", "nano", "micro"],
                 ineligible: []
             },
             {
                 text: "Emacs forever!",
                 benefits: ["emacs", "spacemacs"],
-                disadvantages: ["vim", "gvim", "atom", "gedit", "kwrite", "nano", "micro"],
+                disadvantages: ["vim", "gvim", "atom", "gedit", "kwrite", "nano", "micro", "kate"],
                 ineligible: []
             },
             {
                 text: "Neither!",
-                benefits: ["atom", "gedit", "kwrite", "nano", "micro"],
+                benefits: ["atom", "gedit", "kwrite", "nano", "micro", "kate"],
                 disadvantages: ["emacs", "vim", "gvim", "spacemacs"],
                 ineligible: []
             },
             {
                 text: "I Don't Know!",
-                benefits: ["spacemacs", "nano", "gedit", "kwrite", "atom", "micro"],
+                benefits: ["spacemacs", "nano", "gedit", "kwrite", "atom", "micro", "kate"],
                 disadvantages: [],
                 ineligible: []
             }
@@ -200,12 +218,12 @@ var questions = [
             {
                 text: "Stable!",
                 benefits: ["vim", "gvim", "emacs", "nano"],
-                disadvantages: ["atom", "gedit", "kwrite", "spacemacs", "micro"],
+                disadvantages: ["atom", "gedit", "kwrite", "spacemacs", "micro", "kate"],
                 ineligible: []
             },
             {
                 text: "Modern!",
-                benefits: ["atom", "spacemacs", "micro"],
+                benefits: ["atom", "spacemacs", "micro", "kate"],
                 disadvantages: ["vim", "gvim", "emacs"],
                 ineligible: []
             },
@@ -224,7 +242,7 @@ var questions = [
         options: [
             {
                 text: "Of course!",
-                benefits: ["spacemacs", "atom", "vim", "gvim", "emacs", "kwrite", "micro"],
+                benefits: ["spacemacs", "atom", "vim", "gvim", "emacs", "kwrite", "micro", "kate"],
                 disadvantages: ["nano"],
                 ineligible: []
             },
